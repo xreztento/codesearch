@@ -1,0 +1,119 @@
+a:link{
+    text-decoration:none;
+    color : #8f8f8f;
+}
+
+a:visited{
+    text-decoration:none;
+    color : #8f8f8f;
+}
+
+a:hover{
+    text-decoration:none;
+    color : #3f3f3f;
+}
+
+a:active{
+    text-decoration:none;
+    color : #8f8f8f;
+}
+
+.bootstrap-switch-container{
+    background-color: #ffffff;
+}
+
+[class ^= "icheckbox_square"]{
+    background-color: #ffffff;
+}
+
+[class ^= "iradio_square"]{
+    background-color: #ffffff;
+}
+
+.active a:link{
+    text-decoration:none;
+    color : #dfdfdf;
+}
+
+.active a:visited{
+    text-decoration:none;
+    color : #dfdfdf;
+}
+
+.active a:hover{
+    text-decoration:none;
+    color : #ffffff;
+}
+
+.active a:active{
+    text-decoration:none;
+    color : #dfdfdf;
+}
+
+.nav-tabs .active{
+    background-color : #3f3f3f;
+}
+
+.todo-panels {
+    border-top: 4px solid #e7eaec;
+    vertical-align: top;
+    padding: 0;
+    padding-bottom: 10px;
+    background-color: #fff;
+
+}
+
+
+.todo-panel-heading {
+    background: #fff;
+    position: relative;
+    padding: 10px 15px 10px 20px;
+    height: 40px;
+    border-bottom: 1px solid #e7eaec;
+    border-top: 4px solid #e7eaec;
+}
+
+.todo-panel-heading {
+    border-width: 1px;
+    border-color: #e7eaec;
+}
+
+.todo-panel-heading h5 {
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0 120px 0 0;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.todo-panel-options {
+    font-size: 16px;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+}
+
+.todo-panel-options a {
+    margin-left: 10px;
+}
+
+.click-link {
+    cursor: pointer;
+}
+
+.todo-panel-options a .fa {
+    padding: 3px;
+}
+
+.brick-draggable {
+
+}
+
+
+
+

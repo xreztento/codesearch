@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<script type="text/javascript" src="/static/sea.js"></script>
+<script type="text/javascript" src="/static/module/config/config.js"></script>
+<script type="text/javascript" src="/static/module/static/StyleType.js"></script>
+<script type="text/javascript" src="/static/coreJS/jquery.min.js"></script>
+
+<link rel="stylesheet" href="/static/coreCSS/bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/CodeSearch.css">
+
+</head>
+
+
+<body>
+	<div class="search-bar"></div>
+	<div class="code-bar"></div>
+	<div class="code-view"></div>
+</body>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				seajs.use([ '/static/codesearch/search/CodeSearch' ], function(
+						CodeSearch) {
+					var options = {
+						searchBar : $(".search-bar"),
+						codeBar : $(".code-bar"),
+						codeView : $(".code-view")
+					}
+					CodeSearch.createCodeSearchView(options);
+				});
+			});
+</script>
+</html>
