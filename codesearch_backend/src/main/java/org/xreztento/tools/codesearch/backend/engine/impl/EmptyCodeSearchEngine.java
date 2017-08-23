@@ -5,6 +5,7 @@ import java.util.concurrent.Future;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.xreztento.tools.codesearch.backend.engine.InternalCodeSearchEngine;
+import org.xreztento.tools.codesearch.backend.engine.SearchResult;
 
 @Service("emptyCodeSearchEngineBean")
 public class EmptyCodeSearchEngine implements InternalCodeSearchEngine{

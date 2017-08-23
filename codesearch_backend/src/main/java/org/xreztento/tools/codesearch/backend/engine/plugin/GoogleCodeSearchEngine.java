@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.xreztento.tools.codesearch.backend.engine.InternalCodeSearchEngine;
-import org.xreztento.tools.codesearch.backend.engine.impl.SearchResult;
+import org.xreztento.tools.codesearch.backend.engine.SearchResult;
 import org.xreztento.tools.codesearch.backend.helper.os.OSHelper;
 import org.xreztento.tools.codesearch.backend.helper.os.ProccessRunningResult;
 

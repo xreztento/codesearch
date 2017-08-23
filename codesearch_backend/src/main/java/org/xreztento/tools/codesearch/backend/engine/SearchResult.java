@@ -1,4 +1,4 @@
-package org.xreztento.tools.codesearch.backend.engine.impl;
+package org.xreztento.tools.codesearch.backend.engine;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

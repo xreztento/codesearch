@@ -8,6 +8,7 @@ import org.xreztento.tools.codesearch.backend.engine.CodeSearchEngine;
 import org.xreztento.tools.codesearch.backend.engine.InternalCodeSearchEngine;
 
 import com.google.common.collect.Lists;
+import org.xreztento.tools.codesearch.backend.engine.SearchResult;
 
 public class CodeSearchEngineImpl implements CodeSearchEngine{
 

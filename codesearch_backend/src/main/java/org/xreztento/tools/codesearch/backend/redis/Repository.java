@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
-import org.xreztento.tools.codesearch.backend.engine.impl.SearchResult;
+import org.xreztento.tools.codesearch.backend.engine.SearchResult;
 
 import java.util.concurrent.TimeUnit;
 
