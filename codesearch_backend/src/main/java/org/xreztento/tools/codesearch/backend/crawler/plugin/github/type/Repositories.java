@@ -1,13 +1,22 @@
 package org.xreztento.tools.codesearch.backend.crawler.plugin.github.type;
 
 public class Repositories {
-    private String name = null;
+    private Repository[] repositories = null;
+    private int link;
 
-    public String getName() {
-        return name;
+    public Repository[] getRepositories() {
+        return repositories;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRepositories(Repository[] repositories) {
+        this.repositories = repositories;
+    }
+
+    public int getLink() {
+        return link;
+    }
+
+    public void setLink(int link) {
+        this.link = link;
     }
 }

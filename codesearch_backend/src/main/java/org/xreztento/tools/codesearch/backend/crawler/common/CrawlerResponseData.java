@@ -2,7 +2,7 @@ package org.xreztento.tools.codesearch.backend.crawler.common;
 
 import java.util.Map;
 
-public class APIResponseData {
+public class CrawlerResponseData {
 	protected int statusCode;
 	protected String responseEntity = null;
 	protected Map<String, String> responseHeader = null;

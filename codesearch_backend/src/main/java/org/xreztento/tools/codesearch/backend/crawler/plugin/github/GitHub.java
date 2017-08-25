@@ -9,9 +9,10 @@ import org.apache.http.Header;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicHeader;
 import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Repositories;
+import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Repository;
 
 public class GitHub {
-	
+
 	private Header authHeader = null;
 
 	private GitHub(){};
@@ -47,24 +48,34 @@ public class GitHub {
 		return authHeader;
 	}
 
-	public Object[] getRepositories(int since) throws URISyntaxException {
-		HttpGet get = new HttpGet();
+	public Repositories getRepositories(int since) throws URISyntaxException {
+        Repositories repositories = new Repositories();
+        HttpGet get = new HttpGet();
     	get.setHeader(authHeader);
     	get.setURI(new URI("https://api.github.com/repositories?since=" + since));
         GitHubAPIRequester requester = new GitHubAPIRequester(this);
         RepositoriesResponseResult result = new RepositoriesResponseResult();
-        Object[] repositories = requester.requestObjects(get, result, Repositories.class);
-        System.out.println(result.getSince());
+        repositories.setRepositories(requester.requestObjects(get, result, Repository.class));
+        repositories.setLink(result.getSince());
         return repositories;
 	}
 
-    public static void main(String[] args) throws UnsupportedEncodingException, URISyntaxException{
-        GitHub gitHub =  GitHub.forNoAuthenticationConnector();
-        Object[] repositories = (Object[])gitHub.getRepositories(0);
-        for(Object object : repositories){
-            System.out.println(((Repositories)object).getName());
+    public void download(Repository repository){
 
-        }
     }
+
+//    public static void main(String[] args){
+//        GitHub gitHub = GitHub.forNoAuthenticationConnector();
+//        try {
+//            Repositories repositories = gitHub.getRepositories(0);
+//            for(Repository repository : repositories.getRepositories()){
+//                System.out.println(repository.toString());
+//            }
+//
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 
 }

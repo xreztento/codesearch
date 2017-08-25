@@ -1,4 +1,4 @@
 package org.xreztento.tools.codesearch.backend.crawler.plugin.github;
 
-public class RepositoryResponseResult extends GitHubResult{
+public class RepositoryResponseResult extends GitHubAPIResult{
 }

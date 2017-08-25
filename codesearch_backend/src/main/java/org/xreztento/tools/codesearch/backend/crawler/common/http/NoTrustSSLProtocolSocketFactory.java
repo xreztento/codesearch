@@ -1,4 +1,4 @@
-package org.xreztento.tools.codesearch.backend.crawler.common;
+package org.xreztento.tools.codesearch.backend.crawler.common.http;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -35,7 +35,7 @@ public class NoTrustSSLProtocolSocketFactory implements ConnectionSocketFactory{
          if (this.sslcontext == null) {   
              this.sslcontext = createSSLContext();   
          }   
-         return this.sslcontext;   
+         return this.sslcontext;
      }   
      
      private static class TrustAnyTrustManager implements X509TrustManager {   

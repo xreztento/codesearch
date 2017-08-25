@@ -1,6 +1,6 @@
 package org.xreztento.tools.codesearch.backend.crawler.plugin.github;
 
-public class GitHubResult {
+public class GitHubAPIResult {
     private int statusCode;
     private int xRateLimit_Limit;
     private int xRateLimit_Remaining;
@@ -46,7 +46,5 @@ public class GitHubResult {
     public void setSince(int since) {
         this.since = since;
     }
-
-
 
 }

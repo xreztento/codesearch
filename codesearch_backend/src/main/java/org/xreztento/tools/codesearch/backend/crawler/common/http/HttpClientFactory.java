@@ -1,4 +1,4 @@
-package org.xreztento.tools.codesearch.backend.crawler.common;
+package org.xreztento.tools.codesearch.backend.crawler.common.http;
 
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
