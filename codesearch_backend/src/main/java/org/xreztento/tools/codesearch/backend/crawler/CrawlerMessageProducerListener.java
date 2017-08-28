@@ -10,7 +10,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class CrawlerListener implements ServletContextListener {
+public class CrawlerMessageProducerListener implements ServletContextListener {
     @Autowired
     private CrawlerMessageProducer producer;
 
@@ -20,6 +20,10 @@ public class CrawlerListener implements ServletContextListener {
         message.setType(CrawlerMessageType.REPOSITORY);
         message.setContent("{}");
         producer.sendMessage(message);
+        producer.sendMessage(message);
+        producer.sendMessage(message);
+        producer.sendMessage(message);
+        producer.sendMessage(message);
     }
 
     @Override
@@ -27,4 +31,3 @@ public class CrawlerListener implements ServletContextListener {
 
     }
 }
-

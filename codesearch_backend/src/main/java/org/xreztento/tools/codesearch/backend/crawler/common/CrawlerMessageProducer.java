@@ -10,16 +10,19 @@ import java.util.UUID;
 
 @Component
 public class CrawlerMessageProducer implements RabbitTemplate.ConfirmCallback{
-    private RabbitTemplate rabbitTemplate;
 
     @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+
     public CrawlerMessageProducer(RabbitTemplate rabbitTemplate){
         this.rabbitTemplate = rabbitTemplate;
         rabbitTemplate.setConfirmCallback(this);
     }
     public void sendMessage(CrawlerMessage message) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
-        rabbitTemplate.convertAndSend("",  message.getType().getTypeName(), message.getContent(), correlationId);
+
+        rabbitTemplate.convertAndSend(AmqpConfiguration.EXCHANGE,  message.getType().getTypeName(), message.getContent(), correlationId);
     }
 
     @Override
