@@ -1,5 +1,7 @@
 package org.xreztento.tools.codesearch.backend.crawler.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import java.util.UUID;
 @Component
 public class CrawlerMessageProducer implements RabbitTemplate.ConfirmCallback{
 
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
@@ -28,9 +32,9 @@ public class CrawlerMessageProducer implements RabbitTemplate.ConfirmCallback{
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         if (ack) {
-            System.out.println("Message send success!");
+            logger.info("Message send success!");
         } else {
-            System.out.println("Message send error:" + cause);
+            logger.warn("Message send error:" + cause);
         }
     }
 }

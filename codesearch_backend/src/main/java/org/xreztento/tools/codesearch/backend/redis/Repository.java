@@ -28,9 +28,20 @@ public class Repository {
 		return result.getResult().size();
 	}
 
+    public void setGitHubRepositorySinceValue(int since){
+        valueOps.set("github-repo-since", String.valueOf(since));
+    }
+
+    public int getGitHubRepositorySinceValue(){
+        String value = valueOps.get("github-repo-since");
+        if(value != null){
+            return Integer.valueOf(value);
+        }
+        return 0;
+    }
+
 	public void delSearchResult(String keyWord) {
 		template.delete(keyWord);
-
 	}
 
 }

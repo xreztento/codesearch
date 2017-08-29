@@ -3,6 +3,7 @@ package org.xreztento.tools.codesearch.backend.crawler.plugin.github;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.Header;
@@ -55,14 +56,11 @@ public class GitHub {
     	get.setURI(new URI("https://api.github.com/repositories?since=" + since));
         GitHubAPIRequester requester = new GitHubAPIRequester(this);
         RepositoriesResponseResult result = new RepositoriesResponseResult();
+
         repositories.setRepositories(requester.requestObjects(get, result, Repository.class));
         repositories.setLink(result.getSince());
         return repositories;
 	}
-
-    public void download(Repository repository){
-
-    }
 
 //    public static void main(String[] args){
 //        GitHub gitHub = GitHub.forNoAuthenticationConnector();

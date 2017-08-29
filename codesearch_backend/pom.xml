@@ -93,6 +93,19 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-shaded-client</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sematext.hbasewd</groupId>
+            <artifactId>hbasewd</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <finalName>codesearch_backend</finalName>
