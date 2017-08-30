@@ -11,6 +11,9 @@ public class Repository {
     private String contributors_url = null;
     private String deployments_url = null;
     private String languages_url = null;
+    private int forksCount;
+    private int stargazersCount;
+    private int watchersCount;
     private Owner owner = null;
 
 
@@ -94,6 +97,30 @@ public class Repository {
         this.owner = owner;
     }
 
+    public int getForksCount() {
+        return forksCount;
+    }
+
+    public void setForksCount(int forksCount) {
+        this.forksCount = forksCount;
+    }
+
+    public int getStargazersCount() {
+        return stargazersCount;
+    }
+
+    public void setStargazersCount(int stargazersCount) {
+        this.stargazersCount = stargazersCount;
+    }
+
+    public int getWatchersCount() {
+        return watchersCount;
+    }
+
+    public void setWatchersCount(int watchersCount) {
+        this.watchersCount = watchersCount;
+    }
+
     @Override
     public String toString() {
         return "Repository{" +
@@ -106,6 +133,9 @@ public class Repository {
                 ", contributors_url='" + contributors_url + '\'' +
                 ", deployments_url='" + deployments_url + '\'' +
                 ", languages_url='" + languages_url + '\'' +
+                ", forksCount=" + forksCount +
+                ", stargazersCount=" + stargazersCount +
+                ", watchersCount=" + watchersCount +
                 ", owner=" + owner +
                 '}';
     }

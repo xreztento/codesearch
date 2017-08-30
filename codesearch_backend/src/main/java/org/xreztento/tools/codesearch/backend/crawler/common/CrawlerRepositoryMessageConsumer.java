@@ -1,6 +1,8 @@
 package org.xreztento.tools.codesearch.backend.crawler.common;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -12,17 +14,18 @@ import java.util.concurrent.Executors;
 @RabbitListener(queues = {"Repository"})
 public class CrawlerRepositoryMessageConsumer {
 
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final static int WAITING_TIME = 1000;
     private ExecutorService service = Executors.newFixedThreadPool(CrawlerDownloaderObjectPoolManager.DEFAULT_DOWNLOAD_THREAD_NUM);
     private CrawlerDownloaderObjectPool pool = CrawlerDownloaderObjectPoolManager.getPool();
 
     @RabbitHandler
     public void process(String message) throws InterruptedException {
-        System.out.println("Receiver : " + message);
+        logger.info("Receiver : " + message);
         while(true){
             if(pool.getNumActive() < CrawlerDownloaderObjectPoolManager.DEFAULT_DOWNLOAD_THREAD_NUM
                     && message != null){
-                System.out.println("borrow from " + pool.getNumActive());
+                logger.info("borrow from " + pool.getNumActive());
 
                 try {
                     service.execute(new DownloadTaskWithResult(pool.borrowObject()));
@@ -33,7 +36,7 @@ public class CrawlerRepositoryMessageConsumer {
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(WAITING_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -56,8 +59,8 @@ public class CrawlerRepositoryMessageConsumer {
                 e.printStackTrace();
             } finally {
                 if(this.downloader != null){
-                    System.out.println("return Object!");
-                    System.out.println("return to " + pool.getNumActive());
+                    logger.info("return Object!");
+                    logger.info("return to " + pool.getNumActive());
                     pool.returnObject(this.downloader);
                 }
             }

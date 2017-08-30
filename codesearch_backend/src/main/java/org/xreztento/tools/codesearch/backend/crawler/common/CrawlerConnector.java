@@ -6,6 +6,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.xreztento.tools.codesearch.backend.crawler.common.http.HttpClientFactory;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 
 public class CrawlerConnector {
 
-	public static CrawlerResponseData execute(HttpRequestBase request) {
+    public static CrawlerResponseData execute(HttpRequestBase request) {
 		CloseableHttpClient httpClient = null;
 		CloseableHttpResponse response = null;
         CrawlerResponseData data = new CrawlerResponseData();

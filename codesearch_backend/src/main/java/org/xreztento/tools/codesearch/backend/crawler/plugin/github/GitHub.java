@@ -3,7 +3,6 @@ package org.xreztento.tools.codesearch.backend.crawler.plugin.github;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Date;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.Header;
