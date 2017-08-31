@@ -14,6 +14,7 @@ public class Repository {
     private int forksCount;
     private int stargazersCount;
     private int watchersCount;
+    private String license = "MIT";
     private Owner owner = null;
 
 
@@ -121,6 +122,15 @@ public class Repository {
         this.watchersCount = watchersCount;
     }
 
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
     @Override
     public String toString() {
         return "Repository{" +
@@ -136,6 +146,7 @@ public class Repository {
                 ", forksCount=" + forksCount +
                 ", stargazersCount=" + stargazersCount +
                 ", watchersCount=" + watchersCount +
+                ", license='" + license + '\'' +
                 ", owner=" + owner +
                 '}';
     }

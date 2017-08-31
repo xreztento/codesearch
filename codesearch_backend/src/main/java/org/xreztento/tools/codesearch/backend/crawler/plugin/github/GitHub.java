@@ -58,21 +58,38 @@ public class GitHub {
 
         repositories.setRepositories(requester.requestObjects(get, result, Repository.class));
         repositories.setLink(result.getSince());
+        addExtendRepoDataFromPage(repositories);
         return repositories;
 	}
 
-//    public static void main(String[] args){
-//        GitHub gitHub = GitHub.forNoAuthenticationConnector();
-//        try {
-//            Repositories repositories = gitHub.getRepositories(0);
-//            for(Repository repository : repositories.getRepositories()){
-//                System.out.println(repository.toString());
-//            }
-//
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public String getLanguage(String apiUrl) throws URISyntaxException {
+        HttpGet get = new HttpGet();
+        get.setHeader(authHeader);
+        get.setURI(new URI(apiUrl));
+        GitHubAPIRequester requester = new GitHubAPIRequester(this);
+        GitHubAPIResult result = new GitHubAPIResult();
+        requester.requestResult(get, result);
+        return result.getContent();
+    }
+
+    private void addExtendRepoDataFromPage(Repositories repositories){
+        for(Repository repository : repositories.getRepositories()){
+            GitHubRepoPageProcessor.process(repository);
+        }
+    }
+
+    public static void main(String[] args){
+        GitHub gitHub = GitHub.forNoAuthenticationConnector();
+        try {
+            Repositories repositories = gitHub.getRepositories(0);
+            for(Repository repository : repositories.getRepositories()){
+                System.out.println(repository.toString());
+            }
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

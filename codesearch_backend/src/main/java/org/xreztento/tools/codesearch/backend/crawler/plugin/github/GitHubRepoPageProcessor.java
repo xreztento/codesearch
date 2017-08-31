@@ -22,9 +22,17 @@ public class GitHubRepoPageProcessor {
         String response = null;
         try {
             httpClient = HttpClientFactory.getHttpClient();
-            HttpGet get = new HttpGet(repository.getHtml_url());
+            String url = repository.getHtml_url();
+            HttpGet get = new HttpGet(url);
 
             response = httpClient.execute(get, BASIC_RESPONSE_HANDLER);
+            String relativeUrl = getRelativeUrl(url);
+            int[] socialCount = getSocialCount(response);
+            String license = getLicense(response, relativeUrl);
+            repository.setWatchersCount(socialCount[0]);
+            repository.setStargazersCount(socialCount[1]);
+            repository.setForksCount(socialCount[2]);
+            repository.setLicense(license);
 
 
         } catch (UnsupportedEncodingException e) {
@@ -43,6 +51,36 @@ public class GitHubRepoPageProcessor {
                 }
             }
         }
+    }
+
+    private static String getLicense(String response, String relativeUrl){
+        String license = null;
+        String licenseLeftEdge = "<a href=\"" + relativeUrl + "/blob/master/LICENSE" + "\">";
+        String licenseRightEdge = "</a>";
+        String licenseSource = StringUtils.getRangeStringByEdge(response, licenseLeftEdge, licenseRightEdge, 0);
+        if(licenseSource != null){
+            license = StringUtils.truncateRegexMatchGroup(licenseSource, "<svg(.*)></svg>.*").replace("<svg></svg>", "").trim();
+        }
+        return license;
+    }
+
+    private static int[] getSocialCount(String response){
+        int[] socialCount = new int[3];
+        String leftEdge = "aria-label=\"";
+        String rightEdge = "\">";
+        String[] counts = StringUtils.getRangeStringsByEdge(response, leftEdge, rightEdge);
+        for(String count : counts){
+            if(count.contains(" users are watching this repository") || count.contains(" user is watching this repository")){
+                socialCount[0] = Integer.valueOf(count.substring(0, count.indexOf(" ")));
+            }
+            if(count.contains(" users starred this repository") || count.contains(" user starred this repository")){
+                socialCount[1] = Integer.valueOf(count.substring(0, count.indexOf(" ")));
+            }
+            if(count.contains(" users forked this repository") || count.contains(" user forked this repository")){
+                socialCount[1] = Integer.valueOf(count.substring(0, count.indexOf(" ")));
+            }
+        }
+        return socialCount;
     }
 
     private static String getRelativeUrl(String url){
