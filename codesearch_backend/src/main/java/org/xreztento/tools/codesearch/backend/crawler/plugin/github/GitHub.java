@@ -8,6 +8,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicHeader;
+import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Organization;
 import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Repositories;
 import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Repository;
 
@@ -62,7 +63,30 @@ public class GitHub {
         return repositories;
 	}
 
-    public String getLanguage(String apiUrl) throws URISyntaxException {
+    public String getLanguages(String repositoryFullName) throws URISyntaxException {
+        String apiUrl = "";
+        return getApi(apiUrl);
+    }
+
+    public String getFollowers(String repositoryFullName) throws URISyntaxException {
+        String apiUrl = "";
+        return getApi(apiUrl);
+    }
+
+    public String getFollowing(String repositoryFullName) throws URISyntaxException {
+        String apiUrl = "";
+        return getApi(apiUrl);
+    }
+
+    public String getContributors(String repositoryFullName) throws URISyntaxException {
+        String apiUrl = "";
+        return getApi(apiUrl);
+    }
+
+
+
+
+    public String getApi(String apiUrl) throws URISyntaxException {
         HttpGet get = new HttpGet();
         get.setHeader(authHeader);
         get.setURI(new URI(apiUrl));
@@ -78,18 +102,6 @@ public class GitHub {
         }
     }
 
-    public static void main(String[] args){
-        GitHub gitHub = GitHub.forNoAuthenticationConnector();
-        try {
-            Repositories repositories = gitHub.getRepositories(0);
-            for(Repository repository : repositories.getRepositories()){
-                System.out.println(repository.toString());
-            }
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

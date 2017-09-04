@@ -13,6 +13,9 @@ public class Repository {
     private int forksCount;
     private int stargazersCount;
     private int watchersCount;
+    private String license = null;
+    private String downloadUrl = null;
+    private Owner owner = null;
 
     public long getId() {
         return id;
@@ -102,5 +105,28 @@ public class Repository {
         this.watchersCount = watchersCount;
     }
 
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
 
 }

@@ -16,9 +16,6 @@ public class CrawlerMessageProducerListener implements ServletContextListener {
     @Autowired
     private CrawlerMessageProducer producer;
 
-    @Autowired
-    private HBaseTemplate template;
-
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         CrawlerMessage message = new CrawlerMessage();
@@ -26,16 +23,6 @@ public class CrawlerMessageProducerListener implements ServletContextListener {
         message.setContent("{}");
         producer.sendMessage(message);
         producer.sendMessage(message);
-        producer.sendMessage(message);
-        producer.sendMessage(message);
-        producer.sendMessage(message);
-        template.put(TableName.valueOf("RepositoryInfo"), "1".getBytes(), "Repository".getBytes(), "name".getBytes(), "codesearch".getBytes());
-        template.put(TableName.valueOf("RepositoryInfo"), "1".getBytes(), "Owner".getBytes(), "username".getBytes(), "xreztento".getBytes());
-        try {
-            template.destroy();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 

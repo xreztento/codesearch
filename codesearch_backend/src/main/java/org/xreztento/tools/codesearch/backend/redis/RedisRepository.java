@@ -9,13 +9,13 @@ import org.xreztento.tools.codesearch.backend.engine.SearchResult;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class Repository {
+public class RedisRepository {
 	private StringRedisTemplate template;
 
 	private ValueOperations<String, String> valueOps;
 
 	@Autowired
-	public Repository(StringRedisTemplate template) {
+	public RedisRepository(StringRedisTemplate template) {
 		this.template = template;
 		this.valueOps = template.opsForValue();
 	}
@@ -38,6 +38,10 @@ public class Repository {
             return Integer.valueOf(value);
         }
         return 0;
+    }
+
+    public void resetGitHubRepositorySinceValue(){
+        valueOps.set("github-repo-since", "0");
     }
 
 	public void delSearchResult(String keyWord) {

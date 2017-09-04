@@ -1,8 +1,7 @@
 package org.xreztento.tools.codesearch.backend.crawler;
 
 
-public interface CrawlerEngine {
+public interface InternalCrawlerEngine {
     public void startCrawler();
     public void stopCrawler();
 }
-

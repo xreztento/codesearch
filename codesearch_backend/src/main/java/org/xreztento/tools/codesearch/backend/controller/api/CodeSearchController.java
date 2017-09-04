@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xreztento.tools.codesearch.backend.engine.CodeSearchEngine;
 import org.xreztento.tools.codesearch.backend.engine.SearchResult;
-import org.xreztento.tools.codesearch.backend.redis.Repository;
+import org.xreztento.tools.codesearch.backend.redis.RedisRepository;
 
 
 @Controller
@@ -24,7 +24,7 @@ public class CodeSearchController {
 	private CodeSearchEngine engine;
 	
 	@Autowired
-	private Repository repository;
+	private RedisRepository repository;
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	@ResponseBody

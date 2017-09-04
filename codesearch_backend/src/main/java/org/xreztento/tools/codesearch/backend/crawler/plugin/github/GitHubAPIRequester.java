@@ -9,6 +9,7 @@ import org.xreztento.tools.codesearch.backend.crawler.common.CrawlerConnector;
 import org.xreztento.tools.codesearch.backend.crawler.common.CrawlerResponseData;
 import org.xreztento.tools.codesearch.backend.crawler.utils.StringUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -17,7 +18,8 @@ import java.util.List;
 public class GitHubAPIRequester {
 
     private final static int TRY_COUNT = 10;
-    private final static int TRY_DELAY = 1000;
+    private final static int TRY_DELAY = 5000;
+    private final static int RATE_LIMIT_TIME = 60 * 60 * 1000;
     private GitHub gitHub = null;
 
     public GitHubAPIRequester(GitHub gitHub){
@@ -55,17 +57,34 @@ public class GitHubAPIRequester {
         if(header != null){
             method.setHeader(header);
         }
-
-        CrawlerResponseData data = CrawlerConnector.execute(method);
-        while(data.getStatusCode() != 200 && count < TRY_COUNT){
+        CrawlerResponseData data = null;
+        while (true){
             try {
-                Thread.sleep(TRY_DELAY);
-                count++;
                 data = CrawlerConnector.execute(method);
+                if(data.getStatusCode() == 200){
+                    break;
+                } else if(Integer.valueOf(data.getResponseHeader().get("X-RateLimit-Remaining")) == 0){
+                    Thread.sleep(RATE_LIMIT_TIME);
+                    continue;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                try {
+                    Thread.sleep(TRY_DELAY);
+                    count++;
+                    if(count < TRY_COUNT){
+                        continue;
+                    } else {
+                        break;
+                    }
+
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
 
         if(data != null){

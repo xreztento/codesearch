@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class CrawlerConnector {
 
-    public static CrawlerResponseData execute(HttpRequestBase request) {
+    public static CrawlerResponseData execute(HttpRequestBase request) throws ClientProtocolException, IOException{
 		CloseableHttpClient httpClient = null;
 		CloseableHttpResponse response = null;
         CrawlerResponseData data = new CrawlerResponseData();
@@ -39,10 +39,6 @@ public class CrawlerConnector {
             data.setResponseEntity(sb.toString());
 			
 		} catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         } finally {
 			if(null != response){
