@@ -9,6 +9,7 @@ public class Owner {
     private String following_url = null;
     private String organizations_url = null;
     private String repos_url = null;
+    private String html_url = null;
 
     public long getId() {
         return id;
@@ -66,6 +67,14 @@ public class Owner {
         this.repos_url = repos_url;
     }
 
+    public String getHtml_url() {
+        return html_url;
+    }
+
+    public void setHtml_url(String html_url) {
+        this.html_url = html_url;
+    }
+
     @Override
     public String toString() {
         return "Owner{" +
@@ -76,6 +85,7 @@ public class Owner {
                 ", following_url='" + following_url + '\'' +
                 ", organizations_url='" + organizations_url + '\'' +
                 ", repos_url='" + repos_url + '\'' +
+                ", html_url='" + html_url + '\'' +
                 '}';
     }
 }

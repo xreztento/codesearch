@@ -8,6 +8,7 @@ public class Owner {
     private String followers = null;
     private String following = null;
     private String organizations = null;
+    private String url = null;
 
     public long getId() {
         return id;
@@ -57,6 +58,14 @@ public class Owner {
         this.organizations = organizations;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "Owner{" +
@@ -66,6 +75,7 @@ public class Owner {
                 ", followers='" + followers + '\'' +
                 ", following='" + following + '\'' +
                 ", organizations='" + organizations + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

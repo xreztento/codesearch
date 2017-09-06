@@ -38,11 +38,11 @@ public class OSHelper {
 	 *            命令及参数
 	 * @return
 	 */
-	public static ProccessRunningResult runSystemCommand(String... command) {
+	public static ProcessRunningResult runSystemCommand(String... command) {
 		Process p = null;
 		BufferedInputStream in = null;
 		int exitValue;
-		ProccessRunningResult prr = new ProccessRunningResult();
+        ProcessRunningResult prr = new ProcessRunningResult();
 		StringBuffer sb = new StringBuffer();
 
 		try {

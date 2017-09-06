@@ -35,6 +35,7 @@ public class SearchResult {
 	}
 
 	public String outputForJson() {
+
 		Gson gson = new GsonBuilder().registerTypeAdapter(Double.class, new JsonSerializer<Double>() {
 
 			@Override

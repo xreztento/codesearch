@@ -26,8 +26,18 @@ public class GitHubAPIRequester {
         this.gitHub = gitHub;
     }
 
-    public <T> T[] requestObjects(HttpRequestBase method, GitHubAPIResult gitHubAPIResult, Class<T> clazz) throws URISyntaxException {
+    /**
+     * Request GitHub API object array result with define T class by HttpClient HttpRequestBase object
+     * @param method
+     * @param gitHubAPIResult
+     * @param clazz
+     * @param <T>
+     * @return
+     * @throws URISyntaxException
+     */
+    public <T> T[] requestObjects(HttpRequestBase method, GitHubAPIResult gitHubAPIResult, Class<T> clazz){
         List<T> list = null;
+
 
         requestResult(method, gitHubAPIResult);
         String array = gitHubAPIResult.getContent();
@@ -43,14 +53,29 @@ public class GitHubAPIRequester {
 
     }
 
-    public <T> T requestObject(HttpRequestBase method, GitHubAPIResult gitHubAPIResult, Class<T> clazz) throws URISyntaxException{
+    /**
+     * Request GitHub API object result with define T class by HttpClient HttpRequestBase object
+     * @param method
+     * @param gitHubAPIResult
+     * @param clazz
+     * @param <T>
+     * @return
+     * @throws URISyntaxException
+     */
+    public <T> T requestObject(HttpRequestBase method, GitHubAPIResult gitHubAPIResult, Class<T> clazz){
         requestResult(method, gitHubAPIResult);
         Gson gson = new Gson();
         T result = gson.fromJson(gitHubAPIResult.getContent(), clazz);
         return result;
     }
 
-    public void requestResult(HttpRequestBase method, GitHubAPIResult result) throws URISyntaxException{
+    /**
+     * Request GitHub API raw string result by HttpClient HttpRequestBase object
+     * @param method HttpRequestBase object, example get, post, etc.
+     * @param result GitHubAPIResult object
+     * @throws URISyntaxException
+     */
+    public void requestResult(HttpRequestBase method, GitHubAPIResult result){
 
         Header header = gitHub.getAuthHeader();
         int count = 0;

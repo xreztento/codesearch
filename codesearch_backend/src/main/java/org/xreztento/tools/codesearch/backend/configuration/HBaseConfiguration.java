@@ -3,6 +3,7 @@ package org.xreztento.tools.codesearch.backend.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.xreztento.tools.codesearch.backend.hbase.HBaseTemplate;
 import org.xreztento.tools.codesearch.backend.hbase.PooledHTableFactory;
 
@@ -16,6 +17,7 @@ public class HBaseConfiguration {
     private String clientPort;
 
     @Bean
+    @Scope("prototype")
     public HBaseTemplate hBaseTemplate(){
         org.apache.hadoop.conf.Configuration cfg = org.apache.hadoop.hbase.HBaseConfiguration.create();
         cfg.set("hbase.zookeeper.quorum", quorum);

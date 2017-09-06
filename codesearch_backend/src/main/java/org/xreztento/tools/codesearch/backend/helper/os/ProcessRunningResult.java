@@ -1,6 +1,6 @@
 package org.xreztento.tools.codesearch.backend.helper.os;
 
-public class ProccessRunningResult {
+public class ProcessRunningResult {
 	private String feedback = null;
 	private int exitValue;
 

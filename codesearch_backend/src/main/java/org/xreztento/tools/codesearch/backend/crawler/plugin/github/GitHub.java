@@ -6,9 +6,11 @@ import java.net.URISyntaxException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicHeader;
 import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Organization;
+import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Organizations;
 import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Repositories;
 import org.xreztento.tools.codesearch.backend.crawler.plugin.github.type.Repository;
 
@@ -49,19 +51,29 @@ public class GitHub {
 		return authHeader;
 	}
 
-	public Repositories getRepositories(int since) throws URISyntaxException {
+	public Repositories getRepositories(int since) {
         Repositories repositories = new Repositories();
-        HttpGet get = new HttpGet();
-    	get.setHeader(authHeader);
-    	get.setURI(new URI("https://api.github.com/repositories?since=" + since));
+        HttpGet get = wrapHttpGet("https://api.github.com/repositories?since=" + since);
         GitHubAPIRequester requester = new GitHubAPIRequester(this);
-        RepositoriesResponseResult result = new RepositoriesResponseResult();
 
+        RepositoriesResponseResult result = new RepositoriesResponseResult();
         repositories.setRepositories(requester.requestObjects(get, result, Repository.class));
         repositories.setLink(result.getSince());
         addExtendRepoDataFromPage(repositories);
         return repositories;
 	}
+
+    public Organizations getOrganizations(int since) throws URISyntaxException {
+        Organizations organizations = new Organizations();
+        HttpGet get = wrapHttpGet("https://api.github.com/organizations?since=" + since);
+        GitHubAPIRequester requester = new GitHubAPIRequester(this);
+
+        OrganizationsResponseResult result = new OrganizationsResponseResult();
+        organizations.setOrganizations(requester.requestObjects(get, result, Organization.class));
+        organizations.setLink(result.getSince());
+
+        return organizations;
+    }
 
     public String getLanguages(String repositoryFullName) throws URISyntaxException {
         String apiUrl = "";
@@ -84,12 +96,8 @@ public class GitHub {
     }
 
 
-
-
-    public String getApi(String apiUrl) throws URISyntaxException {
-        HttpGet get = new HttpGet();
-        get.setHeader(authHeader);
-        get.setURI(new URI(apiUrl));
+    public String getApi(String apiUrl){
+        HttpGet get = wrapHttpGet(apiUrl);
         GitHubAPIRequester requester = new GitHubAPIRequester(this);
         GitHubAPIResult result = new GitHubAPIResult();
         requester.requestResult(get, result);
@@ -102,6 +110,15 @@ public class GitHub {
         }
     }
 
-
+    private HttpGet wrapHttpGet(String uri){
+        HttpGet get = new HttpGet();
+        get.setHeader(authHeader);
+        try {
+            get.setURI(new URI(uri));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return get;
+    }
 
 }

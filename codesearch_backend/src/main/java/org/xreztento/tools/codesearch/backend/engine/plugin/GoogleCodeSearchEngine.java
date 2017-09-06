@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.xreztento.tools.codesearch.backend.engine.InternalCodeSearchEngine;
 import org.xreztento.tools.codesearch.backend.engine.SearchResult;
 import org.xreztento.tools.codesearch.backend.helper.os.OSHelper;
-import org.xreztento.tools.codesearch.backend.helper.os.ProccessRunningResult;
+import org.xreztento.tools.codesearch.backend.helper.os.ProcessRunningResult;
 
 @Service("googleCodeSearchEngineBean")
 public class GoogleCodeSearchEngine implements InternalCodeSearchEngine{
@@ -32,8 +32,8 @@ public class GoogleCodeSearchEngine implements InternalCodeSearchEngine{
 		SearchResult result = search(keyWord, "." + postfix.toLowerCase());
 		return new AsyncResult<SearchResult>(result);
 	}
-	
-	private SearchResult search(String... args){
+
+    private SearchResult search(String... args){
 		String[] stringResult = formatResult(executeCommand(args));
 		SearchResult result = stringResultToSearchResult(stringResult);
 		return result;
@@ -41,7 +41,7 @@ public class GoogleCodeSearchEngine implements InternalCodeSearchEngine{
 	
 	private String executeCommand(String... args){
 		String[] command = getCommand(args);
-		ProccessRunningResult result = OSHelper.runSystemCommand(command);
+		ProcessRunningResult result = OSHelper.runSystemCommand(command);
 
 		if(result.getExitValue() == 0){
 			return result.getFeedback();

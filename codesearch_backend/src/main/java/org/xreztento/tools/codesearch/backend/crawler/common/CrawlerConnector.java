@@ -61,7 +61,7 @@ public class CrawlerConnector {
 		return data;
 	}
 
-    public static void download(String url, String path, String fileName){
+    public static boolean download(String url, String path, String fileName){
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
         InputStream in = null;
@@ -91,15 +91,19 @@ public class CrawlerConnector {
                 while((length = in.read(buffer) )!= -1){
                     out.write(buffer, 0, length);
                 }
-
+                return true;
             }
+            return false;
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return false;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } finally {
 
             if(in != null){
