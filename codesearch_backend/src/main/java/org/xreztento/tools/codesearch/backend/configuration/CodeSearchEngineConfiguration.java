@@ -7,6 +7,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.xreztento.tools.codesearch.backend.crawler.CrawlerEngine;
+import org.xreztento.tools.codesearch.backend.crawler.InternalCrawlerEngine;
+import org.xreztento.tools.codesearch.backend.crawler.impl.CrawlerEngineImpl;
 import org.xreztento.tools.codesearch.backend.engine.CodeSearchEngine;
 import org.xreztento.tools.codesearch.backend.engine.InternalCodeSearchEngine;
 import org.xreztento.tools.codesearch.backend.engine.impl.CodeSearchEngineImpl;
@@ -19,14 +22,14 @@ public class CodeSearchEngineConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(name = "codeSearchEngineBean")
-	public CodeSearchEngine getEngineService() {
+	public CodeSearchEngine getCodeSearchEngineService() {
 		CodeSearchEngineImpl codeSearchEngineImpl = new CodeSearchEngineImpl();
 
 		Map<String, InternalCodeSearchEngine> map = applicationContext.getBeansOfType(InternalCodeSearchEngine.class);
 		map.forEach((k, v) -> {
-			if (v.getClass().getPackage().getName().equals("org.xreztento.tools.codesearch.backend.engine.plugin")) {
+			if (v.getClass().getPackage().getName().contains("org.xreztento.tools.codesearch.backend.engine.plugin")) {
 				codeSearchEngineImpl.addInternalCodeSearchEngine(v);
-				System.out.println("Loading CodeSearchEngine " + v.getClass().getName());
+				System.out.println("--------------------Loading CodeSearchEngine " + v.getClass().getName() +"------------------");
 			}
 		});
 

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.xreztento.tools.codesearch.backend.crawler.CrawlerEngine;
 import org.xreztento.tools.codesearch.backend.engine.CodeSearchEngine;
 import org.xreztento.tools.codesearch.backend.engine.SearchResult;
+import org.xreztento.tools.codesearch.backend.hadoop.fs.FsShell;
 import org.xreztento.tools.codesearch.backend.redis.RedisRepository;
 
 
@@ -25,7 +27,10 @@ public class CodeSearchController {
 	
 	@Autowired
 	private RedisRepository repository;
-	
+
+    @Autowired
+    private FsShell shell;
+
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	@ResponseBody
 	public String search(@RequestParam(value = "keyWord", required = true) String keyWord){
@@ -53,4 +58,16 @@ public class CodeSearchController {
 		return json.toString();
 		
 	}
+
+    @RequestMapping(value = { "/lsr" }, method = RequestMethod.GET)
+    @ResponseBody
+    public String lsr(){
+        StringBuilder sb = new StringBuilder();
+        shell.lsr("/benchmarks").forEach( file -> {
+            sb.append("hdfs://" + file.getPath() + "\n");
+        });
+        return sb.toString();
+
+    }
+
 }

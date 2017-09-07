@@ -19,7 +19,7 @@ import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 
 @Service("gitHubCrawlerEngineBean")
-@Scope("singleton")
+//@Scope("singleton")
 public class GitHubCrawlerEngine implements InternalCrawlerEngine {
     private GitHubCrawlerThread thread = new GitHubCrawlerThread();
 
@@ -31,7 +31,8 @@ public class GitHubCrawlerEngine implements InternalCrawlerEngine {
 
     @Override
     public void startCrawler() {
-        thread.start();
+        System.out.println("Start github crawler......");
+        //thread.start();
     }
 
     @Override

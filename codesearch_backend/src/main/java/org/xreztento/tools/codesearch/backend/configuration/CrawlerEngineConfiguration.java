@@ -18,16 +18,17 @@ public class CrawlerEngineConfiguration {
 
     @Autowired
     private ApplicationContext applicationContext;
+
     @Bean
-    @ConditionalOnMissingBean(name = "codeSearchEngineBean")
+    @ConditionalOnMissingBean(name = "crawlerEngineBean")
     public CrawlerEngine getEngineService() {
         CrawlerEngineImpl crawlerEngineImpl = new CrawlerEngineImpl();
-
         Map<String, InternalCrawlerEngine> map = applicationContext.getBeansOfType(InternalCrawlerEngine.class);
+        System.out.println(map.size());
         map.forEach((k, v) -> {
-            if (v.getClass().getPackage().getName().equals("org.xreztento.tools.codesearch.backend.crawler.plugin")) {
+            if (v.getClass().getPackage().getName().contains("org.xreztento.tools.codesearch.backend.crawler.plugin")) {
                 crawlerEngineImpl.addInternalCrawlerEngine(v);
-                System.out.println("Loading CrawlerEngine " + v.getClass().getName());
+                System.out.println("-------------Loading CrawlerEngine " + v.getClass().getName() + "------------------");
             }
         });
 
