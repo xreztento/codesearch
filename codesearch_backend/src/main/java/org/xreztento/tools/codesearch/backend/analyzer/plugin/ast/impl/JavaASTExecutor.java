@@ -23,7 +23,8 @@ public class JavaASTExecutor implements ASTExecutor{
 
         parser.setResolveBindings(false);
         parser.setBindingsRecovery(false);
-        parser.setStatementsRecovery(false);       parser.setIgnoreMethodBodies(false);
+        parser.setStatementsRecovery(false);
+        parser.setIgnoreMethodBodies(false);
 
         String code = FileUtils.getFileContent(file);
 
