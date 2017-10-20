@@ -3,14 +3,13 @@ package org.xreztento.tools.codesearch.backend.controller.api;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.xreztento.tools.codesearch.backend.crawler.CrawlerEngine;
 import org.xreztento.tools.codesearch.backend.engine.CodeSearchEngine;
 import org.xreztento.tools.codesearch.backend.engine.SearchResult;
@@ -18,7 +17,7 @@ import org.xreztento.tools.codesearch.backend.hadoop.fs.FsShell;
 import org.xreztento.tools.codesearch.backend.redis.RedisRepository;
 
 
-@Controller
+@RestController
 @RequestMapping("/api")
 @Validated
 public class CodeSearchController {
@@ -31,7 +30,9 @@ public class CodeSearchController {
     @Autowired
     private FsShell shell;
 
-	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
+    @ApiOperation(value="Search code by keyword for caching result to redis.", notes="", produces = "application/json")
+    @ApiImplicitParam(name = "keyWord", value = "The keyword text or code postfix@keyword", required = true, paramType="query", dataType = "String")
+    @RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	@ResponseBody
 	public String search(@RequestParam(value = "keyWord", required = true) String keyWord){
 		Future<SearchResult> future = null;
