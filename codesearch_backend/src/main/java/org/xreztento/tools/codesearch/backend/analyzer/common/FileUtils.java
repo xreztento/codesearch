@@ -38,7 +38,6 @@ public class FileUtils {
                 sb.append(buffer);
             }
 
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
